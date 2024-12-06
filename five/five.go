@@ -1,4 +1,4 @@
-package main
+package five
 
 import (
 	"bufio"
@@ -20,13 +20,7 @@ type PrintOrderLine struct {
 	Middle int
 }
 
-func main() {
-	rules, printOrderLines := readFile()
-	solve1(rules, printOrderLines)
-	solve2(rules, printOrderLines)
-}
-
-func solve1(rules map[int]Rule, printOrderLines []PrintOrderLine) {
+func Solve1(rules map[int]Rule, printOrderLines []PrintOrderLine) {
 	var middleResults []int
 	var middleSum int
 
@@ -55,7 +49,7 @@ lineLoop:
 	fmt.Println("Total sum of correct middle results", middleSum)
 }
 
-func solve2(rules map[int]Rule, printOrderLines []PrintOrderLine) {
+func Solve2(rules map[int]Rule, printOrderLines []PrintOrderLine) {
 	var middleResults []int
 	var middleSum int
 
@@ -92,7 +86,7 @@ lineLoop:
 	fmt.Println("Total sum of fixed middle results", middleSum)
 }
 
-func readFile() (map[int]Rule, []PrintOrderLine) {
+func ReadFile() (map[int]Rule, []PrintOrderLine) {
 	rules := make(map[int]Rule)
 	var printOrderLines []PrintOrderLine
 
