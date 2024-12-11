@@ -1,7 +1,7 @@
 package main
 
 import (
-	"advent2024/seven"
+	"advent2024/eight"
 	"fmt"
 )
 
@@ -17,8 +17,11 @@ func main() {
 	//six.Solve2(puzzleMap)
 
 	fmt.Println("Running Seven package...")
-	totalSum := seven.Solve("./resources/7.txt", 1)
-	fmt.Println(totalSum)
-	totalSum = seven.Solve("./resources/7.txt", 2)
-	fmt.Println(totalSum)
+	// totalSum := seven.Solve("./resources/7.txt", 1)
+	// fmt.Println(totalSum)
+	// totalSum = seven.Solve("./resources/7.txt", 2)
+	// fmt.Println(totalSum)
+
+	checkSum := eight.Solve("./resources/8.txt", 2)
+	fmt.Println(checkSum)
 }
