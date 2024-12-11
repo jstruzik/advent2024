@@ -1,4 +1,4 @@
-package eight
+package nine
 
 import (
 	"bufio"
@@ -6,12 +6,6 @@ import (
 	"log"
 	"os"
 	"strconv"
-)
-
-const (
-	ADD      string = "add"
-	MULTIPLY string = "multiply"
-	CONCAT   string = "concat"
 )
 
 func Solve(fileName string, problem int) int {

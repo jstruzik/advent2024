@@ -1,7 +1,7 @@
 package main
 
 import (
-	"advent2024/eight"
+	"advent2024/eleven"
 	"fmt"
 )
 
@@ -22,6 +22,11 @@ func main() {
 	// totalSum = seven.Solve("./resources/7.txt", 2)
 	// fmt.Println(totalSum)
 
-	checkSum := eight.Solve("./resources/8.txt", 2)
-	fmt.Println(checkSum)
+	fmt.Println("Running Nine package...")
+	//checkSum := nine.Solve("./resources/9.txt", 2)
+	//fmt.Println(checkSum)
+
+	fmt.Println("Running Eleven package...")
+	stones := eleven.Solve("./resources/11.txt", 1)
+	fmt.Println(stones)
 }
