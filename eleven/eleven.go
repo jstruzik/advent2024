@@ -38,9 +38,17 @@ func Solve(fileName string, problem int) int {
 
 	fmt.Println(stoneMap)
 	totalStones := 0
+	var resultCacheMap = make(map[[2]int]int)
 
 	if problem == 1 {
-		totalStones = blink(stoneMap, 1, 75)
+		blinkAmount := 25
+		return blink(stoneMap, 1, blinkAmount)
+	} else if problem == 2 {
+		blinkAmount := 75
+		for i := 0; i < len(stoneMap); i++ {
+			numStones := blinkPerNumber(stoneMap[i], 1, blinkAmount, resultCacheMap)
+			totalStones += numStones
+		}
 	}
 
 	return totalStones
@@ -48,6 +56,7 @@ func Solve(fileName string, problem int) int {
 
 func blink(stoneMap []int, count int, countMax int) int {
 	stones := 0
+	var newStones []int
 	fmt.Println("Blinking", count)
 	for i := 0; i < len(stoneMap); i++ {
 		num := stoneMap[i]
@@ -58,32 +67,53 @@ func blink(stoneMap []int, count int, countMax int) int {
 		} else if len(strNum)%2 == 0 {
 			mid := len(strNum) / 2
 			leftStr, rightStr := strNum[:mid], strNum[mid:]
-			leftNum, err := strconv.Atoi(string(leftStr))
-			if err != nil {
-				fmt.Println("could not convert number", err)
-				continue
-			}
-			rightNum, err := strconv.Atoi(string(rightStr))
-			if err != nil {
-				fmt.Println("could not convert number", err)
-				continue
-			}
+			leftNum, _ := strconv.Atoi(leftStr)
+			rightNum, _ := strconv.Atoi(rightStr)
+
 			stoneMap[i] = leftNum
-			stoneMap = append(stoneMap, 0)
-			copy(stoneMap[i+1:], stoneMap[i:])
-			stoneMap[i+1] = rightNum
-			i++
+			newStones = append(newStones, rightNum)
 			stones += 2
 		} else {
 			stoneMap[i] = stoneMap[i] * 2024
 			stones++
 		}
 	}
+
+	stoneMap = append(stoneMap, newStones...)
 	//fmt.Println(stoneMap)
 	if count == countMax {
 		return stones
 	}
 	count++
+	fmt.Println("Stone count", stones)
 
 	return blink(stoneMap, count, countMax)
+}
+
+func blinkPerNumber(num int, count int, countMax int, resultCache map[[2]int]int) int {
+	if val, exists := resultCache[[2]int{count, num}]; exists {
+		return val
+	}
+	strNum := strconv.Itoa(num)
+	if count == countMax {
+		if len(strNum)%2 == 0 {
+			return 2
+		}
+		return 1
+	}
+	if num == 0 {
+		return blinkPerNumber(1, count+1, countMax, resultCache)
+	} else if len(strNum)%2 == 0 {
+		mid := len(strNum) / 2
+		leftStr, rightStr := strNum[:mid], strNum[mid:]
+		leftNum, _ := strconv.Atoi(leftStr)
+		rightNum, _ := strconv.Atoi(rightStr)
+		val := blinkPerNumber(leftNum, count+1, countMax, resultCache) + blinkPerNumber(rightNum, count+1, countMax, resultCache)
+		resultCache[[2]int{count, num}] = val
+		return val
+	} else {
+		val := blinkPerNumber(num*2024, count+1, countMax, resultCache)
+		resultCache[[2]int{count, num}] = val
+		return val
+	}
 }

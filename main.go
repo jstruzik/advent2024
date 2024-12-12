@@ -28,5 +28,7 @@ func main() {
 
 	fmt.Println("Running Eleven package...")
 	stones := eleven.Solve("./resources/11.txt", 1)
-	fmt.Println(stones)
+	fmt.Println("Problem 1 stones:", stones)
+	stones = eleven.Solve("./resources/11.txt", 2)
+	fmt.Println("Problem 2 stones:", stones)
 }
